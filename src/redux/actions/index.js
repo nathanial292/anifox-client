@@ -8,4 +8,4 @@ const toggleTodo = (index) => {
     return { type: TOGGLE_TODO, index }
 }
 
-export { addTodo }
+export { addTodo, toggleTodo }

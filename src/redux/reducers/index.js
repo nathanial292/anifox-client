@@ -1,17 +1,13 @@
 import { ADD_TODO, TOGGLE_TODO } from "../actions/actionTypes"
-import { addTodo } from "../actions"
-
-const initialState = {
-    todos: []
-}
+import { combineReducers } from 'redux'
 
 const todos = (state = [], action) => {
   switch (action.type) {
     case ADD_TODO:
-      return [...state.todos, { text: action.item, completed: false }]
+      return [...state, { item: action.item, completed: false }]
 
     case TOGGLE_TODO:
-      return state.todos.map((todo, index) => {
+      return state.map((todo, index) => {
         if (index === action.index) {
           return {...todo, completed: !todo.completed}
         }
@@ -23,15 +19,8 @@ const todos = (state = [], action) => {
   }
 }
 
-const todoApp = (state = initialState, action) => {
-  switch(action.type) {
-    case ADD_TODO:
-      return {...state, todos: todos(state.todos, action)}
+const todoApp = combineReducers({
+  todos
+})
 
-    case TOGGLE_TODO:
-      return {...state, todos: todos(state.todos, action)}
-      
-    default:
-      return state
-  }
-}
+export default todoApp
