@@ -4,11 +4,15 @@ import { BrowserRouter } from 'react-router-dom'
 
 import App from './routes'
 
+import store from './redux/store'
+
 ReactDOM.render(
-  <BrowserRouter>
-    <Fragment>
-      <App />
-    </Fragment>
-  </BrowserRouter>,
+  <Provider store={store}>
+    <BrowserRouter>
+      <Fragment>
+        <App />
+      </Fragment>
+    </BrowserRouter>
+  </Provider>,
   document.getElementById('root')
 )
