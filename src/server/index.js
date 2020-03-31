@@ -12,6 +12,7 @@ app.use(cors())
 // Paths
 const projectRoot = resolve('./')
 const buildFolder = resolve(projectRoot, 'build')
+const distFolder = resolve(projectRoot, 'dist')
 
 // Body parser
 app.use(express.json())
@@ -43,7 +44,7 @@ if (process.env.NODE_ENV === 'development') {
 
 // Main route
 app.get('*', (req, res) => {
-  res.sendFile(buildFolder + '/index.html')
+  res.sendFile(process.env.NODE_ENV === 'production' ? buildFolder : distFolder + '/index.html')
 })
 
 const errorHandler = (err, req, res, next) => {

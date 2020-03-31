@@ -14,7 +14,7 @@ const useStyles = makeStyles(theme => ({
 const Home = () => {
   const classes = useStyles()
   return (
-    <div className={`${classes.root} ${"bokehs"}`}>
+    <div className={`${classes.root}`}>
       <h1 className={classes.h1}>Welcome</h1>
     </div>
   )
