@@ -1,20 +1,20 @@
-import { createStore } from 'redux'
-import todoApp from '../reducers'
-import { addTodo, toggleTodo } from '../actions'
+import { createStore, applyMiddleware } from 'redux'
+import { createLogger } from 'redux-logger'
+import thunkMiddleware from 'redux-thunk'
 
-const store = createStore(todoApp)
+import rootReducer from '../reducers'
+import { fetchAnimeIfNeeded } from '../actions'
 
-console.log(store.getState())
+const loggerMiddleware = createLogger()
 
-const unsubscribe = store.subscribe(() => console.log(store.getState()))
+const store = createStore(
+    rootReducer,
+    applyMiddleware(
+        thunkMiddleware,
+        loggerMiddleware
+    )
+)
 
-store.dispatch(addTodo('Eat jelly tomorrow'))
-store.dispatch(addTodo('Complete coursework'))
-store.dispatch(addTodo('Do some fitness'))
-store.dispatch(addTodo('Revise'))
-store.dispatch(toggleTodo(0))
-store.dispatch(toggleTodo(1))
-
-unsubscribe()
+store.dispatch(fetchAnimeIfNeeded())
 
 export default store
