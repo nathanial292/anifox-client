@@ -1,6 +1,7 @@
 import {
   SELECT_ANIME,
   INVALIDATE_ANIME,
+  INVALIDATE_EPISODE,
   REQUEST_EPISODES,
   RECEIVE_EPISODES,
   FAIL_EPISODES,
@@ -9,23 +10,6 @@ import {
 } from "../actions"
 
 import { combineReducers } from 'redux'
-
-/*
-const todos = (state = [], action) => {
-  switch (action.type) {
-    case ADD_TODO:
-      return [...state, { item: action.item, completed: false }]
-    case TOGGLE_TODO:
-      return state.map((todo, index) => {
-        if (index === action.index) {
-          return {...todo, completed: !todo.completed}
-        }
-        return todo
-      })
-    default:
-      return state
-  }
-}*/
 
 const selectedAnime = (state=null, action) => {
   switch (action.type) {
@@ -46,7 +30,7 @@ const episodes = (state = {
     case REQUEST_EPISODES:
       return {...state, isFetching: true, didInvalidate: false}
     case RECEIVE_EPISODES:
-      return {...state, isFetching: false, didInvalidate: false, episodes: action.episodes}
+      return {...state, isFetching: false, didInvalidate: false, lastUpdated: action.receivedAt, [action.anime]: action.episodes}
     default:
       return state
   }
@@ -56,10 +40,12 @@ const anime = (state = {
   isFetching: false,
 }, action) => {
   switch (action.type) {
+    case INVALIDATE_EPISODE:
+      return {...state, didInvalidate: true}
     case REQUEST_ANIME:
-      return {...state, isFetching: true}
+      return {...state, didInvalidate: false, isFetching: true}
     case RECEIVE_ANIME:
-      return {...state, isFetching: false, anime: action.anime}
+      return {...state, didInvalidate: false, isFetching: false, anime: action.anime}
     default:
       return state
   }

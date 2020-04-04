@@ -92,6 +92,10 @@ const devConfig = {
     },
   },
 
+  devServer: {
+    historyApiFallback: true,
+  },
+
   entry: [
     '@babel/polyfill',
     'webpack/hot/dev-server',

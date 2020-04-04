@@ -40,31 +40,35 @@ export const fetchAnimeIfNeeded = () => {
   return (dispatch, getState) => {
     if(shouldFetchAnime(getState())) {
       return dispatch(fetchAnime())
-    } else {
+    } else {  
       return Promise.resolve()
     }
   }
 }
 
-/**
- * Set an anime as selected
- */
-export const SELECT_ANIME = 'SELECT_ANIME'
-const selectAnime = anime => {
-  return {
-    type: SELECT_ANIME,
-    anime
+// Episodes
+const fetchEpisodes = (id) => {
+  return dispatch => {
+    dispatch(requestEpisodes(id))
+    return foxifyjs.episode.get(id)
+      .then(response => dispatch(receiveEpisodes(id, response)))
   }
 }
 
-/**
- * Used to invalidate an anime, maybe a new episode is released and refresh the page
- */
-export const INVALIDATE_ANIME = 'INVALIDATE_ANIME'
-const invalidateAnime = anime => {
-  return {
-    type: INVALIDATE_ANIME,
-    anime
+const shouldFetchEpisodes = (state, id) => {
+  const episodes = state.episodes[id]
+  if (typeof episodes === 'undefined') return true
+  else if (state.episodes.isFetching) return false
+  else return state.episodes.didInvalidate
+}
+
+export const fetchEpisodesIfNeeded = (id) => {
+  return (dispatch, getState) => {
+    if (shouldFetchEpisodes(getState(), id)) {
+      return dispatch(fetchEpisodes(id))
+    } else {
+      return Promise.resolve()
+    }
   }
 }
 
@@ -87,8 +91,8 @@ const receiveEpisodes = (anime, json) => {
   return {
     type: RECEIVE_EPISODES,
     anime,
+    receivedAt: Date.now(),
     episodes: json.data,
-    receivedAt: Date.now()
   }
 }
 
@@ -103,12 +107,44 @@ const failEpisodes = error => {
   }
 }
 
-export {
-  requestAnime,
-  receiveAnime,
-  selectAnime,
-  invalidateAnime,
-  requestEpisodes,
-  receiveEpisodes,
-  failEpisodes
+/**
+ * Set an anime as selected, fetch episodes
+ */
+export const SELECT_ANIME = 'SELECT_ANIME'
+export const selectAnime = (anime) => {
+  return dispatch => {
+    dispatch({
+      type: SELECT_ANIME,
+      anime
+    })
+    dispatch(fetchEpisodesIfNeeded(anime))
+  }
 }
+
+/**
+ * Used to invalidate the home page, maybe a new anime is released and get new content
+ */
+export const INVALIDATE_ANIME = 'INVALIDATE_ANIME'
+export const invalidateAnime = () => {
+  return dispatch => {
+    dispatch({
+      type: INVALIDATE_ANIME
+    })
+    dispatch(fetchAnimeIfNeeded())
+  }
+}
+
+/**
+ * Used to invalidate an anime, maybe a new episode is released and get new content
+ */
+export const INVALIDATE_EPISODE = 'INVALIDATE_EPISODE'
+export const invalidateEpisode = anime => {
+  return dispatch => {
+    dispatch({
+      type: INVALIDATE_EPISODE,
+      anime
+    })
+    dispatch(fetchEpisodesIfNeeded(anime))
+  }
+}
+

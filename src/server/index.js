@@ -43,8 +43,12 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 // Main route
-app.get('*', (req, res) => {
-  res.sendFile(process.env.NODE_ENV === 'production' ? buildFolder : distFolder + '/index.html')
+app.get('/*', (req, res) => {
+  if (process.env.NODE_ENV === 'production') {
+    res.sendFile(buildFolder + '/index.html')
+  } else {
+    res.sendFile(distFolder + '/index.html')
+  }
 })
 
 const errorHandler = (err, req, res, next) => {

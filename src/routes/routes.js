@@ -4,6 +4,9 @@ import DefaultLayout from '../layouts/DefaultLayout'
 import SimpleLayout from '../layouts/SimpleLayout'
 import HomeLayout from '../layouts/HomeLayout'
 
+//import Home from '../views/Home'
+
+
 const Home = Loadable({
   loader: () => import('../views/Home'),
   loading() {
@@ -18,6 +21,11 @@ export default[
     component: Home,
     path: '/',
     exact: true,
+  },
+  {
+    layout: DefaultLayout,
+    component: Home,
+    path: '/test'
   },
   {
     layout: SimpleLayout,
