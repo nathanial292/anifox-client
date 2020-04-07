@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { withStyles } from '@material-ui/core'
+import VizSensor from 'react-visibility-sensor';
 
 const styles = theme => ({
   image: {
@@ -20,7 +21,7 @@ const styles = theme => ({
 class Title extends Component {
   constructor(props) {
     super(props)
-    this.state = {loaded: false}
+    this.state = {hasLoaded: false, imgViz: false}
   }
   handleClick(malID, e) {
     this.props.handleClick(malID, e)
@@ -30,13 +31,26 @@ class Title extends Component {
     const { title, picture, malID, key } = this.props.value
     const { classes } = this.props
     return (
-      <div
-        className={`${classes.anime}`}
-        key={key}
-        onClick={(e) => this.handleClick(malID, e)}>
-        <img src={picture} className={`${classes.image}`} onLoad={() => this.setState({ loaded: true })} />
-        {this.state.loaded ? <span>{title}</span> : null}
-      </div>
+      <VizSensor
+        partialVisibility
+        onChange={(isVisible) => {
+          this.setState({ imgViz: isVisible})
+        }}
+      >
+
+        <div
+          key={key}
+          className={`${classes.anime}`}
+          onClick={(e) => this.handleClick(malID, e)}
+        >
+          {this.state.imgViz || this.state.hasLoaded ?
+            <img src={picture} className={`${classes.image}`} onLoad={() => this.setState({ hasLoaded: true })} />
+          : 
+            <div className={`${classes.image}`} style={{ backgroundColor: 'rgba(50,250,50,1)'}}></div>
+          }
+          <span>{title}</span>
+        </div>
+      </VizSensor>
     )
   }
 }
