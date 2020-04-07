@@ -3,6 +3,7 @@ import { withStyles } from '@material-ui/core/styles'
 
 import { connect } from 'react-redux'
 import { fetchAnimeIfNeeded, invalidateAnime, selectAnime } from '../redux/actions'
+import Title from '../components/Title'
 
 const styles = theme => ({
   root: {
@@ -12,9 +13,6 @@ const styles = theme => ({
     'justify-content': 'flex-start',
     'flex-wrap': 'wrap'
   },
-  h1: {
-    margin: 0
-  },
   anime: {
     display: 'flex',
     'flex-wrap': 'wrap',
@@ -23,10 +21,6 @@ const styles = theme => ({
     height: 'auto',
     width: '167px',
     margin: '0px 2px 0px 2px'
-  },
-  image: {
-    height: '242px',
-    width: '167px'
   }
 })
 
@@ -41,10 +35,10 @@ class Home extends Component {
     dispatch(fetchAnimeIfNeeded())
   }
 
-  handleAnimeClick(anime, e) {
+  handleAnimeClick(malID, e) {
     e.preventDefault()
     const { dispatch } = this.props
-    dispatch(selectAnime(anime.malID))
+    dispatch(selectAnime(malID))
   }
 
   render() {
@@ -52,13 +46,11 @@ class Home extends Component {
     return (
       <div className={`${classes.root}`}>
         {typeof anime.anime !== 'undefined' ? Object.values(anime.anime).map(value => (
-          <div
-            className={`${classes.anime}`}
+          <Title
             key={value.malID}
-            onClick={(e) => this.handleAnimeClick(value, e)}>
-            <img src={value.picture} className={`${classes.image}`}/> 
-            <span>{value.title}</span>
-          </div>
+            handleClick={this.handleAnimeClick}
+            value = {value}
+          />
         )): <span>Loading</span>}
       </div>
     )

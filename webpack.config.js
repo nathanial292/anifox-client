@@ -125,7 +125,7 @@ const prodConfig = {
 
   optimization: {
     minimize: true,
-    nodeEnv: 'production'
+    nodeEnv: 'production',
   },
 
   plugins: [
