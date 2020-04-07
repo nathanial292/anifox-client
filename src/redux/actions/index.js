@@ -4,14 +4,28 @@ import foxifyjs from 'foxifyjs'
  * Fetch all anime from endpoint
  */
 export const REQUEST_ANIME = 'REQUEST_ANIME'
+export const RECEIVE_ANIME = 'RECEIVE_ANIME'
+export const FAIL_ANIME = 'FAIL_ANIME'
+export const INVALIDATE_ANIME = 'INVALIDATE_ANIME'
+
+/**
+ * Used to invalidate the home page, maybe a new anime is released and get new content
+ */
+export const invalidateAnime = () => {
+  return dispatch => {
+    dispatch({
+      type: INVALIDATE_ANIME
+    })
+    dispatch(fetchAnimeIfNeeded())
+  }
+}
+
+// Request all the anime from anifox
 const requestAnime = () => {
   return { type: REQUEST_ANIME }
 }
 
-/**
- * On response of api, all anime
- */
-export const RECEIVE_ANIME = 'RECEIVE_ANIME'
+// When the anime is received
 const receiveAnime = json => {
   return {
     type: RECEIVE_ANIME,
@@ -29,6 +43,7 @@ export const fetchAnime = () => {
   }
 }
 
+// Determines if the anime should be fetched depending on already existing data
 const shouldFetchAnime = (state) => {
   const anime = state.anime
   if (!anime.anime) return true
@@ -36,6 +51,7 @@ const shouldFetchAnime = (state) => {
   else return anime.didInvalidate
 }
 
+// Attemps to fetch anime, happens on home page load by default
 export const fetchAnimeIfNeeded = () => {
   return (dispatch, getState) => {
     if(shouldFetchAnime(getState())) {
@@ -46,7 +62,39 @@ export const fetchAnimeIfNeeded = () => {
   }
 }
 
-// Episodes
+/**
+ * Episodes
+ */
+export const REQUEST_EPISODES = 'REQUEST_EPISODES'
+export const RECEIVE_EPISODES = 'RECEIVE_EPISODES'
+export const FAIL_EPISODES = 'FAIL_EPISODES'
+export const INVALIDATE_EPISODE = 'INVALIDATE_EPISODE'
+export const SELECT_ANIME = 'SELECT_ANIME'
+
+
+// Set an anime as selected, fetch episodes
+export const selectAnime = (anime) => {
+  return dispatch => {
+    dispatch({
+      type: SELECT_ANIME,
+      anime
+    })
+    dispatch(fetchEpisodesIfNeeded(anime))
+  }
+}
+
+
+// Used to invalidate an anime, maybe a new episode is released and get new content
+export const invalidateEpisode = anime => {
+  return dispatch => {
+    dispatch({
+      type: INVALIDATE_EPISODE,
+      anime
+    })
+    dispatch(fetchEpisodesIfNeeded(anime))
+  }
+}
+
 const fetchEpisodes = (id) => {
   return dispatch => {
     dispatch(requestEpisodes(id))
@@ -72,10 +120,7 @@ export const fetchEpisodesIfNeeded = (id) => {
   }
 }
 
-/**
- * Get episodes for anime
- */
-export const REQUEST_EPISODES = 'REQUEST_EPISODES'
+// Get episodes for anime
 const requestEpisodes = anime => {
   return {
     type: REQUEST_EPISODES,
@@ -83,10 +128,7 @@ const requestEpisodes = anime => {
   }
 }
 
-/**
- * On episodes success
- */
-export const RECEIVE_EPISODES = 'RECEIVE_EPISODES'
+// On episode receive success
 const receiveEpisodes = (anime, json) => {
   return {
     type: RECEIVE_EPISODES,
@@ -96,55 +138,10 @@ const receiveEpisodes = (anime, json) => {
   }
 }
 
-/**
- * On episodes fail
- */
-export const FAIL_EPISODES = 'FAIL_EPISODES'
+// On episode fetch fail
 const failEpisodes = error => {
   return {
     type: FAIL_EPISODES,
     error: error.message || 'Something bad happened'
   }
 }
-
-/**
- * Set an anime as selected, fetch episodes
- */
-export const SELECT_ANIME = 'SELECT_ANIME'
-export const selectAnime = (anime) => {
-  return dispatch => {
-    dispatch({
-      type: SELECT_ANIME,
-      anime
-    })
-    dispatch(fetchEpisodesIfNeeded(anime))
-  }
-}
-
-/**
- * Used to invalidate the home page, maybe a new anime is released and get new content
- */
-export const INVALIDATE_ANIME = 'INVALIDATE_ANIME'
-export const invalidateAnime = () => {
-  return dispatch => {
-    dispatch({
-      type: INVALIDATE_ANIME
-    })
-    dispatch(fetchAnimeIfNeeded())
-  }
-}
-
-/**
- * Used to invalidate an anime, maybe a new episode is released and get new content
- */
-export const INVALIDATE_EPISODE = 'INVALIDATE_EPISODE'
-export const invalidateEpisode = anime => {
-  return dispatch => {
-    dispatch({
-      type: INVALIDATE_EPISODE,
-      anime
-    })
-    dispatch(fetchEpisodesIfNeeded(anime))
-  }
-}
-

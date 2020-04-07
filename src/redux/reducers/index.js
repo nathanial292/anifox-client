@@ -31,6 +31,8 @@ const episodes = (state = {
       return {...state, isFetching: true, didInvalidate: false}
     case RECEIVE_EPISODES:
       return {...state, isFetching: false, didInvalidate: false, lastUpdated: action.receivedAt, [action.anime]: action.episodes}
+    case FAIL_EPISODES:
+      return {...state, isFetching: false, error: action.error}
     default:
       return state
   }
