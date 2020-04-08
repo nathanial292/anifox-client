@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { withStyles } from '@material-ui/core/styles'
+import { withStyles, makeStyles } from '@material-ui/core/styles'
 
 import { connect } from 'react-redux'
 import { fetchAnimeIfNeeded, invalidateAnime, selectAnime } from '../redux/actions'
@@ -11,7 +11,8 @@ const styles = theme => ({
     height: "100%",
     display: 'flex',
     'justify-content': 'flex-start',
-    'flex-wrap': 'wrap'
+    'flex-wrap': 'wrap',
+    backgroundColor: '#212121'
   },
   anime: {
     display: 'flex',
@@ -20,7 +21,7 @@ const styles = theme => ({
     'justify-content': 'flex-start',
     height: 'auto',
     width: '167px',
-    margin: '0px 2px 0px 2px'
+    margin: '0px 2px 0px 2px',
   }
 })
 

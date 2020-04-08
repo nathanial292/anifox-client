@@ -7,9 +7,7 @@ const app = express()
 
 const PORT = process.env.PORT
 app.disable('x-powered-by')
-app.use(cors({
-  origin: 'http://myanimelist.net'
-}))
+app.use(cors())
 
 // Paths
 const projectRoot = resolve('./')
