@@ -70,7 +70,7 @@ class Title extends Component {
               >
                 <span style={{ color: 'white', position: 'absolute', margin: 0 }}>{title}</span>
               </LazyBackground>
-          : null
+          : <div className={`${classes.image}`}></div>
           }
         </div>
       </VizSensor>
