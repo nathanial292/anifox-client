@@ -24,23 +24,26 @@ class LazyBackground extends Component {
     let style = {
       backgroundImage: `url(${this.state.src})`
     }
-    if (this.state.loaded) {
-      style = { ...style, opacity: 0.8 }
+    if (!this.state.loaded) {
+      style = { ...style, opacity: 0 }
     } else {
-      style = {...style, opacity: 0}
+      style = {...style, opacity: 0.5 }
     }
     if (this.props.getvisability() && this.state.loaded) {
-      style = {...style, opacity: 0.8, }
+      style = {...style, opacity: 0.5 }
     } else {
-      style = {...style, opacity: 0.2}
+      style = {...style, opacity: 0 }
     }
 
 
-    style.transition = `opacity 0.5s ease 0s`;
+    style.transition = `opacity 1s ease 0s`;
 
     return (
-      <div {...this.props} style={style} >
+      <div style={{position: 'relative'}}>
         {this.props.children}
+        <div style={{ backgroundColor: 'rgba(0,0,0,1)' }}>
+          <div {...this.props} style={style}></div>
+        </div>
       </div>
     )
   }

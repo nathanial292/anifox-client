@@ -68,7 +68,7 @@ class Title extends Component {
                 handleload={this.handleLoad} 
                 getvisability={this.getVisability}
               >
-                <span style={{ color: 'white', position: 'relative', margin: 0 }}>{title}</span>
+                <span style={{ color: 'white', position: 'absolute', margin: 0 }}>{title}</span>
               </LazyBackground>
           : <Animate appear show type="fade">
               <div className={`${classes.image}`}>Loading...</div>

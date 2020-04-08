@@ -19,7 +19,7 @@ const Header = () => {
         <AppBar position="fixed" className={classes.appBar}>
             <Toolbar variant="dense">
                 <Typography variant="h6" edge="start" color="inherit">
-                    Nathanial Howard
+                    Anifox
                 </Typography>
             </Toolbar>
         </AppBar>
