@@ -5,7 +5,7 @@ const expressStaticGzip = require('express-static-gzip')
 
 const app = express()
 
-const PORT = process.env.PORT
+const PORT = 3003
 app.disable('x-powered-by')
 app.use(cors())
 
@@ -59,7 +59,6 @@ const errorHandler = (err, req, res, next) => {
 
 app.use(errorHandler)
 
-
-app.listen(3002, () =>
-  console.log(`Started on port 3002!`)
+app.listen(PORT, () =>
+  console.log(`Started on port ${PORT}`)
 )
