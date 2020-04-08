@@ -4,6 +4,7 @@ import { withStyles, makeStyles } from '@material-ui/core/styles'
 import { connect } from 'react-redux'
 import { fetchAnimeIfNeeded, invalidateAnime, selectAnime } from '../redux/actions'
 import Title from '../components/Title'
+import AnimeWrapper from '../components/AnimeWrapper'
 
 const styles = theme => ({
   root: {
@@ -29,6 +30,12 @@ class Home extends Component {
   constructor(props) {
     super(props)
     this.handleAnimeClick = this.handleAnimeClick.bind(this)
+    this.state = {
+      index: 0,
+      hasNextPage: true,
+      isNextPageLoading: false,
+      items: []
+    }
   }
 
   componentDidMount() {
@@ -42,17 +49,35 @@ class Home extends Component {
     dispatch(selectAnime(malID))
   }
 
+  _loadNextPage = (...args) => {
+    this.setState({ isNextPageLoading: true }, () => {
+      this.setState(state => ({
+        index: args[0]+50,
+        hasNextPage: state.items.length < Object.keys(this.props.anime.anime).length,
+        isNextPageLoading: false,
+        items: [...state.items].concat(
+          new Array(50).fill(true).map(() => (
+            Object.values(this.props.anime.anime).slice(args[0], args[1]+50)
+          ))
+        )
+      }))
+      console.log(args[0], args[1])
+    })
+  }
+
   render() {
     const { anime, classes } = this.props
     return (
       <div className={`${classes.root}`}>
-        {typeof anime.anime !== 'undefined' ? Object.values(anime.anime).map(value => (
-          <Title
-            key={value.malID}
+        {typeof anime.anime !== 'undefined' ? 
+          <AnimeWrapper
+            hasNextPage={this.state.hasNextPage}
+            isNextPageLoading={this.state.isNextPageLoading}
+            items={this.state.items}
+            loadNextPage={this._loadNextPage}
             handleClick={this.handleAnimeClick}
-            value = {value}
           />
-        )): <span>Loading</span>}
+        : <span>Loading</span>}
       </div>
     )
   }

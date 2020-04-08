@@ -145,3 +145,11 @@ const failEpisodes = error => {
     error: error.message || 'Something bad happened'
   }
 }
+
+export const SET_EPISODE_INDEX = 'SET_EPISODE_INDEX'
+export const setEpisodeIndex = (index) => {
+  return {
+    type: SET_EPISODE_INDEX,
+    index
+  }
+}

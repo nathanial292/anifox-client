@@ -3,9 +3,10 @@
     "react-hot-loader/babel",
     "@babel/plugin-syntax-dynamic-import",
     "react-loadable/babel",
+    "@babel/plugin-proposal-class-properties"
   ],
   "presets": [
     "@babel/preset-react",
-    "@babel/preset-env",
+    "@babel/preset-env"
   ]
 }

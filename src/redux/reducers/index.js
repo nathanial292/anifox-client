@@ -6,7 +6,8 @@ import {
   RECEIVE_EPISODES,
   FAIL_EPISODES,
   REQUEST_ANIME,
-  RECEIVE_ANIME
+  RECEIVE_ANIME,
+  SET_EPISODE_INDEX
 } from "../actions"
 
 import { combineReducers } from 'redux'
@@ -40,6 +41,7 @@ const episodes = (state = {
 
 const anime = (state = {
   isFetching: false,
+  index: 0
 }, action) => {
   switch (action.type) {
     case INVALIDATE_EPISODE:
@@ -48,6 +50,8 @@ const anime = (state = {
       return {...state, didInvalidate: false, isFetching: true}
     case RECEIVE_ANIME:
       return {...state, didInvalidate: false, isFetching: false, anime: action.anime}
+    case SET_EPISODE_INDEX:
+      return {...state, index: action.index}
     default:
       return state
   }
