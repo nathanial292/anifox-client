@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
+import { Transition } from 'react-transition-group'
 
 class LazyBackground extends Component {
   constructor(props) {
     super(props)
-    this.state = { src: null }
+    this.state = { src: null, loaded: false }
   }
 
   componentDidMount() {
@@ -13,15 +14,32 @@ class LazyBackground extends Component {
     imageLoader.src = src
 
     imageLoader.onload = () => {
-      this.setState({ src })
-      
+      this.setState({ src, loaded: true })
+
       this.props.handleload()
     }
   }
 
   render() {
+    let style = {
+      backgroundImage: `url(${this.state.src})`
+    }
+    if (this.state.loaded) {
+      style = { ...style, opacity: 0.8 }
+    } else {
+      style = {...style, opacity: 0}
+    }
+    if (this.props.getvisability() && this.state.loaded) {
+      style = {...style, opacity: 0.8, }
+    } else {
+      style = {...style, opacity: 0.2}
+    }
+
+
+    style.transition = `opacity 0.5s ease 0s`;
+
     return (
-      <div {...this.props} style={this.props.getvisability() ? { opacity: 0.8, backgroundImage: `url(${this.state.src})`} : { opacity: 0.2, backgroundImage: `url(${this.state.src})`}}>
+      <div {...this.props} style={style} >
         {this.props.children}
       </div>
     )

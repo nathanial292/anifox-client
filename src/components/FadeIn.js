@@ -20,7 +20,7 @@ export default class FadeIn extends React.Component {
 
     return (
       <LazyLoad height={height} offset={150}>
-        <Transition in={loaded} timeout={duration}>
+        <Transition in={loaded} timeout={300}>
           {state =>
             <div style={{ ...defaultStyle, ...transitionStyles[state] }}>
               {children(this.onLoad)}

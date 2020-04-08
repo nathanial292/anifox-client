@@ -62,11 +62,14 @@ class Title extends Component {
           onClick={(e) => this.handleClick(malID, e)}
         >
           {this.state.imgViz || this.state.hasLoaded ?
-            <Animate show={this.state.imgViz || this.state.hasLoaded} type="fade">
-              <LazyBackground key={malID} className={`${classes.image}`} src={picture} handleload={this.handleLoad} getvisability={this.getVisability}>
+              <LazyBackground key={key} 
+                className={`${classes.image}`} 
+                src={picture} 
+                handleload={this.handleLoad} 
+                getvisability={this.getVisability}
+              >
                 <span style={{ color: 'white', position: 'relative', margin: 0 }}>{title}</span>
               </LazyBackground>
-            </Animate>
           : <Animate appear show type="fade">
               <div className={`${classes.image}`}>Loading...</div>
             </Animate>
