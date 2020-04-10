@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import { withStyles } from '@material-ui/core'
 import VizSensor from 'react-visibility-sensor';
 import LazyBackground from './LazyBackground'
-import { Animate } from 'react-animate-mount'
+
+import Information from './Information'
 
 const styles = theme => ({
   image: {
@@ -47,7 +48,7 @@ class Title extends Component {
   }
 
   render() {
-    const { title, picture, malID, key, nbEp } = this.props.value
+    const { title, picture, malID, key, nbEp, type } = this.props.value
     const { classes } = this.props
 
     return (
@@ -67,11 +68,13 @@ class Title extends Component {
                 handleload={this.handleLoad}
                 getvisability={this.getVisability}
               >
-                <span className={`${classes.text}`} style={{ bottom: 0, margin: '0 0 10px 5px', fontSize: '14px'}}>{title}</span>
+                <span className={`${classes.text}`} style={{ top: 0, margin: '25px 0 0 5px'}}>{type}</span>
                 <span className={`${classes.text}`} style={{ top: 0, margin: '10px 0 0 5px' }}>{nbEp} Episodes</span>
+                <span className={`${classes.text}`} style={{ bottom: 0, margin: '0 0 10px 5px', fontSize: '14px'}}>{title}</span>
               </LazyBackground>
           : <div className={`${classes.image}`}></div>
           }
+          <Information />
         </div>
       </VizSensor>
     )
