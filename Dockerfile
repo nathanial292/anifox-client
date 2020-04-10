@@ -2,9 +2,10 @@ FROM node:13-alpine
 
 WORKDIR /usr/src/app
 
-#COPY package*.json /usr/src/app
-COPY . .
+COPY package.json ./
+
 RUN yarn
+COPY . .
 
 RUN yarn run build:prod
 EXPOSE 3003
