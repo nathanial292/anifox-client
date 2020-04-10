@@ -64,7 +64,6 @@ class Title extends Component {
         >
           {this.state.imgViz || this.state.hasLoaded ?
               <LazyBackground key={key}
-                className={`${classes.image}`}
                 src={picture}
                 handleload={this.handleLoad}
                 getvisability={this.getVisability}

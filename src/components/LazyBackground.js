@@ -1,5 +1,23 @@
 import React, { Component } from 'react'
 import { Animate } from 'react-animate-mount'
+import { withStyles } from '@material-ui/styles'
+
+const styles = (theme) => ({
+  image: {
+    height: '242px',
+    width: '167px',
+    borderRadius: '8px',
+    '&:hover': {
+      opacity: '0.2!important',
+      'webkit-filter': 'blur(4px)', /* Chrome, Safari, Opera */
+      'filter': 'blur(4px)',
+    },
+  },
+  container: {
+    backgroundColor: 'rgba(0,0,0,1)',
+    borderRadius: '8px'
+  }
+})
 
 class LazyBackground extends Component {
   constructor(props) {
@@ -21,35 +39,31 @@ class LazyBackground extends Component {
   }
 
   render() {
+    const { classes } = this.props
     let style = {
       backgroundImage: `url(${this.state.src})`,
-      borderRadius: '8px'
     }
-    let textStyle = {}
     if (!this.state.loaded) {
       style = { ...style, opacity: 0 }
-      textStyle = {...textStyle, opacity: 0}
     } else {
-      style = {...style, opacity: 0.5 }
-      textStyle = {...textStyle, opacity: 1}
+      style = {...style, opacity: 0.7 }
     }
     if (this.props.getvisability() && this.state.loaded) {
-      style = {...style, opacity: 0.5 }
-      textStyle = {...textStyle, opacity: 1}
+      style = {...style, opacity: 0.7 }
     } else {
       style = {...style, opacity: 0 }
-      textStyle = {...textStyle, opacity: 0}
     }
 
     style.transition = `opacity 0.4s ease 0s`;
-    textStyle.transition = `opacity 0.4s ease 0s`;
 
     return (
       <Animate type="fade" show={this.props.getvisability() || this.state.loaded} appear>
         <div style={{position: 'relative'}}>
           {React.cloneElement(this.props.children)}
-          <div style={{ backgroundColor: 'rgba(0,0,0,1)', borderRadius: '8px' }}>
-            <div {...this.props} style={style}></div>
+          <div className={`${classes.container}`}>
+            <div className={`${classes.image}`} style={style}>
+              {this.props.children}
+            </div>
           </div>
         </div>
       </Animate>
@@ -57,4 +71,4 @@ class LazyBackground extends Component {
   }
 }
 
-export default LazyBackground
+export default withStyles(styles)(LazyBackground)
