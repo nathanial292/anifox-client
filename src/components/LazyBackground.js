@@ -7,9 +7,10 @@ const styles = (theme) => ({
     height: '242px',
     width: '167px',
     borderRadius: '6px',
-    transition: 'filter 0.4s ease 0s',
+    transition: 'all 0.4s ease 0s',
     '&:hover': {
-      'filter': 'blur(4px) opacity(0.5)!important',
+      'filter': 'blur(4px)',
+       opacity: '0.5!important'
     },
   },
   container: {
@@ -44,14 +45,14 @@ class LazyBackground extends Component {
       background: `url(${this.state.src})`,
     }
     if (!this.state.loaded) {
-      style = { ...style, filter: 'opacity(0)' }
+      style = { ...style, opacity: 0 }
     } else {
-      style = {...style, filter: 'opacity(0.7)' }
+      style = {...style, opacity: 0.7 }
     }
     if (this.props.getvisability() && this.state.loaded) {
-      style = {...style, filter: 'opacity(0.7)' }
+      style = {...style, opacity: 0.7 }
     } else {
-      style = {...style, filter: 'opacity(0)' }
+      style = {...style, opacity: 0 }
     }
     
     return (
