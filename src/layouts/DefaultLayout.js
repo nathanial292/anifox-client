@@ -4,12 +4,12 @@ import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles(theme => ({
   root: {
-    height: "200vh",
+    height: "100vh",
     backgroundColor: '#212121'
   }
 }))
 
-export default ({ component: Component, ...rest }) => {
+const DefaultLayout = ({ component: Component, ...rest }) => {
   const classes = useStyles()
   return (
     <div className={classes.root}>
@@ -18,3 +18,5 @@ export default ({ component: Component, ...rest }) => {
     </div>
   )
 }
+
+export default DefaultLayout

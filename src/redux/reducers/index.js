@@ -39,7 +39,7 @@ const episodes = (state = {
 }
 
 const anime = (state = {
-  isFetching: false,
+  isFetching: true,
 }, action) => {
   switch (action.type) {
     case INVALIDATE_EPISODE:

@@ -14,13 +14,13 @@ const Home = Loadable({
 
 export default[
   {
-    layout: HomeLayout,
+    layout: DefaultLayout,
     component: Home,
     path: '/',
     exact: true,
   },
   {
-    layout: DefaultLayout,
+    layout: HomeLayout,
     component: Home,
     path: '/test'
   },

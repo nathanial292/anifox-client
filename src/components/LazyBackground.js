@@ -41,8 +41,8 @@ class LazyBackground extends Component {
       textStyle = {...textStyle, opacity: 0}
     }
 
-    style.transition = `opacity 1s ease 0s`;
-    textStyle.transition = `opacity 1s ease 0s`;
+    style.transition = `opacity 0.4s ease 0s`;
+    textStyle.transition = `opacity 0.4s ease 0s`;
 
     return (
       <Animate type="fade" show={this.props.getvisability() || this.state.loaded} appear>

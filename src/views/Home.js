@@ -8,10 +8,11 @@ import Title from '../components/Title'
 const styles = theme => ({
   root: {
     width: "100%",
-    height: "100%",
+    height: "auto",
     display: 'flex',
     'justify-content': 'flex-start',
     'flex-wrap': 'wrap',
+    'flex-grow': '1',
     backgroundColor: '#212121'
   },
   anime: {
@@ -46,13 +47,13 @@ class Home extends Component {
     const { anime, classes } = this.props
     return (
       <div className={`${classes.root}`}>
-        {typeof anime.anime !== 'undefined' ? Object.values(anime.anime).map(value => (
+        {!anime.isFetching ? Object.values(anime.anime).map(value => (
           <Title
             key={value.malID}
             handleClick={this.handleAnimeClick}
             value = {value}
           />
-        )): <span>Loading</span>}
+        )): null}
       </div>
     )
   }
