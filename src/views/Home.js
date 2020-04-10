@@ -10,7 +10,7 @@ const styles = theme => ({
   root: {
     width: "100%",
     height: "auto",
-    backgroundColor: theme.palette.background[900]
+    backgroundColor: theme.palette.background[50]
   },
 })
 

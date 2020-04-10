@@ -6,7 +6,7 @@ const styles = (theme) => ({
   image: {
     height: '242px',
     width: '167px',
-    borderRadius: '8px',
+    borderRadius: '6px',
     '&:hover': {
       opacity: '0.2!important',
       'webkit-filter': 'blur(4px)', /* Chrome, Safari, Opera */
@@ -15,7 +15,7 @@ const styles = (theme) => ({
   },
   container: {
     backgroundColor: 'rgba(0,0,0,1)',
-    borderRadius: '8px'
+    borderRadius: '6px',
   }
 })
 

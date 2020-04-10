@@ -9,6 +9,9 @@ const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
     height: "50px"
+  },
+  appBar: {
+    backgroundColor: theme.palette.background[900]
   }
 }))
 
@@ -18,7 +21,7 @@ const Header = () => {
     <div className={classes.root}>
         <AppBar position="fixed" className={classes.appBar}>
             <Toolbar variant="dense">
-                <Typography variant="h6" edge="start" color="inherit">
+                <Typography style={{color: 'white'}}variant="h6" edge="start" color="initial">
                     Anifox
                 </Typography>
             </Toolbar>

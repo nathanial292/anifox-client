@@ -24,6 +24,7 @@ const styles = theme => ({
     margin: '0 0 10px 5px',
     fontSize: '12px',
     bottom: 0,
+    zIndex: 1
   }
 })
 
