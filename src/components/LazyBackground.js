@@ -7,15 +7,15 @@ const styles = (theme) => ({
     height: '242px',
     width: '167px',
     borderRadius: '6px',
+    transition: 'filter 0.4s ease 0s',
     '&:hover': {
-      opacity: '0.2!important',
-      'webkit-filter': 'blur(4px)', /* Chrome, Safari, Opera */
-      'filter': 'blur(4px)',
+      'filter': 'blur(4px) opacity(0.5)!important',
     },
   },
   container: {
     backgroundColor: 'rgba(0,0,0,1)',
     borderRadius: '6px',
+    position: 'relative'
   }
 })
 
@@ -41,30 +41,24 @@ class LazyBackground extends Component {
   render() {
     const { classes } = this.props
     let style = {
-      backgroundImage: `url(${this.state.src})`,
+      background: `url(${this.state.src})`,
     }
     if (!this.state.loaded) {
-      style = { ...style, opacity: 0 }
+      style = { ...style, filter: 'opacity(0)' }
     } else {
-      style = {...style, opacity: 0.7 }
+      style = {...style, filter: 'opacity(0.7)' }
     }
     if (this.props.getvisability() && this.state.loaded) {
-      style = {...style, opacity: 0.7 }
+      style = {...style, filter: 'opacity(0.7)' }
     } else {
-      style = {...style, opacity: 0 }
+      style = {...style, filter: 'opacity(0)' }
     }
-
-    style.transition = `opacity 0.4s ease 0s`;
-
+    
     return (
       <Animate type="fade" show={this.props.getvisability() || this.state.loaded} appear>
-        <div style={{position: 'relative'}}>
-          {React.cloneElement(this.props.children)}
-          <div className={`${classes.container}`}>
-            <div className={`${classes.image}`} style={style}>
-              {this.props.children}
-            </div>
-          </div>
+        <div className={`${classes.container}`}>
+          {this.props.children}
+          <div className={`${classes.image}`} style={style}></div>
         </div>
       </Animate>
     )

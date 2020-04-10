@@ -21,9 +21,7 @@ const styles = theme => ({
   text: {
     color: 'white',
     position: 'absolute',
-    margin: '0 0 10px 5px',
     fontSize: '12px',
-    bottom: 0,
     zIndex: 1
   }
 })
@@ -49,7 +47,7 @@ class Title extends Component {
   }
 
   render() {
-    const { title, picture, malID, key } = this.props.value
+    const { title, picture, malID, key, nbEp } = this.props.value
     const { classes } = this.props
 
     return (
@@ -69,7 +67,8 @@ class Title extends Component {
                 handleload={this.handleLoad}
                 getvisability={this.getVisability}
               >
-                <span className={`${classes.text}`}>{title}</span>
+                <span className={`${classes.text}`} style={{ bottom: 0, margin: '0 0 10px 5px', fontSize: '14px'}}>{title}</span>
+                <span className={`${classes.text}`} style={{ top: 0, margin: '10px 0 0 5px' }}>{nbEp} Episodes</span>
               </LazyBackground>
           : <div className={`${classes.image}`}></div>
           }
