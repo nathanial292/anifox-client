@@ -10,13 +10,15 @@ import store from './redux/store'
 
 import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
-import purple from '@material-ui/core/colors/purple';
+import orange from '@material-ui/core/colors/orange';
 import green from '@material-ui/core/colors/green';
+import grey from '@material-ui/core/colors/grey';
 
 const theme = createMuiTheme({
   palette: {
-    primary: purple,
+    primary: orange,
     secondary: green,
+    background: grey
   },
   status: {
     danger: 'orange',

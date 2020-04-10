@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { withStyles, makeStyles } from '@material-ui/core/styles'
+import { Grid } from '@material-ui/core'
 
 import { connect } from 'react-redux'
 import { fetchAnimeIfNeeded, invalidateAnime, selectAnime } from '../redux/actions'
@@ -9,21 +10,8 @@ const styles = theme => ({
   root: {
     width: "100%",
     height: "auto",
-    display: 'flex',
-    'justify-content': 'flex-start',
-    'flex-wrap': 'wrap',
-    'flex-grow': '1',
-    backgroundColor: '#212121'
+    backgroundColor: theme.palette.background[900]
   },
-  anime: {
-    display: 'flex',
-    'flex-wrap': 'wrap',
-    'flex-direction': 'column',
-    'justify-content': 'flex-start',
-    height: 'auto',
-    width: '167px',
-    margin: '0px 2px 0px 2px',
-  }
 })
 
 class Home extends Component {
@@ -47,6 +35,12 @@ class Home extends Component {
     const { anime, classes } = this.props
     return (
       <div className={`${classes.root}`}>
+        <Grid
+          container
+          direction="row"
+          justify="space-evenly"
+          alignItems="flex-start"
+        >
         {!anime.isFetching ? Object.values(anime.anime).map(value => (
           <Title
             key={value.malID}
@@ -54,6 +48,7 @@ class Home extends Component {
             value = {value}
           />
         )): null}
+        </Grid>
       </div>
     )
   }
