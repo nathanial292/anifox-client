@@ -22,7 +22,8 @@ class LazyBackground extends Component {
 
   render() {
     let style = {
-      backgroundImage: `url(${this.state.src})`
+      backgroundImage: `url(${this.state.src})`,
+      borderRadius: '8px'
     }
     let textStyle = {}
     if (!this.state.loaded) {
@@ -47,7 +48,7 @@ class LazyBackground extends Component {
       <Animate type="fade" show={this.props.getvisability() || this.state.loaded} appear>
         <div style={{position: 'relative'}}>
           {React.cloneElement(this.props.children)}
-          <div style={{ backgroundColor: 'rgba(0,0,0,1)' }}>
+          <div style={{ backgroundColor: 'rgba(0,0,0,1)', borderRadius: '8px' }}>
             <div {...this.props} style={style}></div>
           </div>
         </div>

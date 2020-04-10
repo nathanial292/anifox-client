@@ -15,6 +15,7 @@ const isProduction = process.env.NODE_ENV === 'production'
 const projectRoot = resolve(__dirname)
 const sourceFolder = resolve(projectRoot, 'src')
 const buildFolder = resolve(projectRoot, 'build')
+const distFolder = resolve(projectRoot, 'dist')
 const publicFolder = resolve(projectRoot, 'public')
 const htmlTemplateFile = resolve(publicFolder, 'index.html')
 
@@ -70,9 +71,9 @@ const devConfig = {
   mode: 'development',
 
   output: {
-    path: buildFolder,
+    path: distFolder,
     filename: 'js/[name].js',
-    publicPath: 'http://localhost:3002/',
+    publicPath: 'http://localhost:3003/',
   },
 
   plugins: [

@@ -8,12 +8,6 @@ const styles = theme => ({
   image: {
     height: '242px',
     width: '167px',
-    transition: 'all .2s linear',
-  },
-  container: {
-    height: 'auto',
-    width: 'auto',
-    backgroundColor: '#212121'
   },
   anime: {
     display: 'flex',
@@ -22,7 +16,14 @@ const styles = theme => ({
     'justify-content': 'flex-start',
     height: 'auto',
     width: '167px',
-    margin: '0px 2px 0px 2px',
+    margin: '5px 5px 5px 5px',
+  },
+  text: {
+    color: 'white',
+    position: 'absolute',
+    margin: '0 0 10px 5px',
+    fontSize: '12px',
+    bottom: 0
   }
 })
 
@@ -68,7 +69,7 @@ class Title extends Component {
                 handleload={this.handleLoad}
                 getvisability={this.getVisability}
               >
-                <span style={{ color: 'white', position: 'absolute', margin: 0 }}>{title}</span>
+                <span className={`${classes.text}`}>{title}</span>
               </LazyBackground>
           : <div className={`${classes.image}`}></div>
           }
