@@ -1,0 +1,8 @@
+deploy:
+  docker:
+    - image: circleci/golang:1.10
+  steps:
+    - run:
+        docker build -t nathanial292/anifox-client .
+        docker login -u $DOCKER_USER -p $DOCKER_PASS
+        docker push nathanial/anifox-client
