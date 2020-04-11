@@ -21,7 +21,8 @@ const Header = () => {
     <div className={classes.root}>
         <AppBar position="fixed" className={classes.appBar}>
             <Toolbar variant="dense">
-                <Typography style={{color: 'white'}}variant="h6" edge="start" color="initial">
+                <img src={'../../logo.png'} style={{width: '30px'}}/>
+                <Typography style={{color: 'white'}} variant="h6" edge="start" color="initial">
                     Anifox
                 </Typography>
             </Toolbar>
