@@ -73,7 +73,7 @@ class Title extends Component {
               getvisability={this.getVisability}
             >
               <span className={`${classes.text}`} style={{ top: 0, margin: '25px 0 0 5px'}}>{type}</span>
-              <span className={`${classes.text}`} style={{ top: 0, margin: '10px 0 0 5px' }}>{nbEp} Episodes</span>
+              <span className={`${classes.text}`} style={{ top: 0, margin: '10px 0 0 5px' }}>{nbEp === 0 ? 'Ongoing' : nbEp + ' Episodes'}</span>
             </LazyBackground>
             <span className={`${classes.text}`} style={{ position: 'relative', bottom: 0, fontSize: '14px'}}>{title}</span>
           </div>
