@@ -22,7 +22,7 @@ export const useWindowEvent = (callback) => {
 };
 
 const Home = () => {
-  const [contentCount, setContentCount] = useState(100)
+  const [contentCount, setContentCount] = useState(50)
   const divElement = useRef()
   const dispatch = useDispatch()
   const anime = useSelector(state => state.anime)
@@ -32,8 +32,10 @@ const Home = () => {
     const node = divElement.current
     const bottom = node.getBoundingClientRect().bottom - window.innerHeight
 
+    console.log(bottom)
+
     if (bottom <= 200 && bottom >= 0) {
-      let newLimit = contentCount + 100
+      let newLimit = contentCount + 50
       setContentCount(newLimit)
     }  
   }, [divElement, window.innerHeight, contentCount])
