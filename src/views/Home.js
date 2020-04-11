@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect, useRef, useCallback} from 'react'
+import React, { useState, useEffect, useRef, useCallback} from 'react'
 import { makeStyles } from '@material-ui/styles'
 import { Grid } from '@material-ui/core'
 
@@ -22,7 +22,7 @@ export const useWindowEvent = (callback) => {
 };
 
 const Home = () => {
-  const [contentCount, setContentCount] = useState(50)
+  const [contentCount, setContentCount] = useState(30)
   const divElement = useRef()
   const dispatch = useDispatch()
   const anime = useSelector(state => state.anime)
@@ -32,10 +32,8 @@ const Home = () => {
     const node = divElement.current
     const bottom = node.getBoundingClientRect().bottom - window.innerHeight
 
-    console.log(bottom)
-
     if (bottom <= 200 && bottom >= 0) {
-      let newLimit = contentCount + 50
+      let newLimit = contentCount + 100
       setContentCount(newLimit)
     }  
   }, [divElement, window.innerHeight, contentCount])

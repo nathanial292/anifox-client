@@ -7,7 +7,7 @@ const styles = (theme) => ({
     height: '242px',
     width: '167px',
     borderRadius: '6px',
-    transition: 'all 0.8s ease 0s',
+    transition: 'opacity 1s ease 0s, filter 0.2s ease 0s',
     '&:hover': {
       'filter': 'blur(4px)',
        opacity: '0.5!important'
