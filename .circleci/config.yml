@@ -1,0 +1,20 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/node:stretch
+    steps:
+      - checkout
+
+      - run:
+          name: Install Docker client
+          command: apt install docker-ce
+
+      - deploy:
+          name: Push application to docker
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              docker build -t nathanial292/anifox-client .
+              docker login -u $DOCKER_USER -p $DOCKER_PASS
+              docker push nathanial/anifox-client
+            fi
