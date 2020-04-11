@@ -21,12 +21,12 @@ const publicFolder = resolve(projectRoot, 'public')
 const htmlTemplateFile = resolve(publicFolder, 'index.html')
 
 const babelRule = {
-  test: /\.(js|tsx?)$/,
+  test: /\.js$|jsx/,
   use: 'babel-loader'
 }
 
 const sassRule = {
-  test: /\.scss$/,
+  test: /\.css|.scss$/,
   use: [
     isProduction
       ? {

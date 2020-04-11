@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback} from 'react'
+import { usePopper } from 'react-popper';
 import { makeStyles } from '@material-ui/styles'
 import { Grid } from '@material-ui/core'
 
@@ -19,6 +20,28 @@ export const useWindowEvent = (callback) => {
     window.addEventListener('scroll', callback);
     return () => window.removeEventListener('scroll', callback);
   }, [callback]);
+};
+
+const Example = () => {
+  const [referenceElement, setReferenceElement] = React.useState(null);
+  const [popperElement, setPopperElement] = React.useState(null);
+  const [arrowElement, setArrowElement] = React.useState(null);
+  const { styles, attributes } = usePopper(referenceElement, popperElement, {
+    modifiers: [{ name: 'arrow', options: { element: arrowElement } }],
+  });
+
+  return (
+    <>
+      <button type="button" ref={setReferenceElement}>
+        Reference element
+      </button>
+
+      <div ref={setPopperElement} style={styles.popper} {...attributes.popper}>
+        Popper element
+        <div ref={setArrowElement} style={styles.arrow} />
+      </div>
+    </>
+  );
 };
 
 const Home = () => {
