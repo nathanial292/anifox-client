@@ -4,15 +4,14 @@ import DefaultLayout from '../layouts/DefaultLayout'
 import SimpleLayout from '../layouts/SimpleLayout'
 import HomeLayout from '../layouts/HomeLayout'
 
-/*
+
 const Home = Loadable({
   loader: () => import('../views/Home'),
   loading() {
     return <div>Loading...</div>
   },
   delay: 300,
-})*/
-import Home from '../views/Home'
+})
 
 export default[
   {
