@@ -37,7 +37,9 @@ class Home extends Component {
 
   handleScroll = () => {
     var node = this.divElement
-    const bottom = node.scrollHeight-node.offsetTop - (window.scrollY) <= 788;
+    //console.log(window.scrollY, window.pageYOffset, node.clientHeight, node.scrollTop, node.offsetHeight, window.innerHeight)
+    //console.log(node.getBoundingClientRect().bottom - window.innerHeight)
+    const bottom = node.getBoundingClientRect().bottom - window.innerHeight <= 100
     if (bottom) {      
       if (bottom) this.setState({ contentCount: this.state.contentCount+=100 })
     }    
