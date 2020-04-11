@@ -32,7 +32,7 @@ class Home extends Component {
   }
   
   componentWillUnmount() {
-    window.removeEventListener('scroll')
+    window.removeEventListener('scroll', this.handleScroll)
   }
 
   handleScroll = () => {
