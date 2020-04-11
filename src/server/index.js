@@ -18,7 +18,7 @@ const distFolder = resolve(projectRoot, 'dist')
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
-app.use('/', expressStaticGzip('build', {
+app.use('/', expressStaticGzip(process.env.NODE_ENV === 'development' ? 'dist' : 'build', {
     enableBrotli: true,
     orderPreference: ['br']
 }))

@@ -9,6 +9,7 @@ const OptimizeCssAssetsWebpackPlugin = require('optimize-css-assets-webpack-plug
 const BrotliPlugin = require('brotli-webpack-plugin')
 const CompressionPlugin = require('compression-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const isProduction = process.env.NODE_ENV === 'production'
 
@@ -98,6 +99,7 @@ const devConfig = {
   },
 
   entry: [
+    'react-hot-loader/patch',
     '@babel/polyfill',
     'webpack/hot/dev-server',
     'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=2000',
@@ -154,15 +156,15 @@ const prodConfig = {
       inject: true
     }),
     new HtmlWebpackInlineSourcePlugin(),
-    new BrotliPlugin({
-      asset: '[path].br[query]',
-      test: /\.(js|css|html|svg)$/
-    })
-    /*
     new CompressionPlugin({
-      test: /\.js(\?.*)?$/i,
-      filename: '[path].gz[query]',
-    })*/
+      filename: '[path].br[query]',
+      algorithm: 'brotliCompress',
+      test: /\.(js|css|html|svg)$/,
+      compressionOptions: { level: 11 },
+      threshold: 10240,
+      minRatio: 0.8,
+      deleteOriginalAssets: false,
+    })
   ],
 
   performance: {

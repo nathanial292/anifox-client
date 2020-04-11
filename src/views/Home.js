@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { withStyles, makeStyles } from '@material-ui/core/styles'
+import { withStyles } from '@material-ui/styles'
 import { Grid } from '@material-ui/core'
 
 import { connect } from 'react-redux'
@@ -18,11 +18,29 @@ class Home extends Component {
   constructor(props) {
     super(props)
     this.handleAnimeClick = this.handleAnimeClick.bind(this)
+
+    this.state = {
+      contentCount: 100
+    }
   }
 
   componentDidMount() {
     const { dispatch } = this.props
     dispatch(fetchAnimeIfNeeded())
+
+    window.addEventListener('scroll', this.handleScroll)
+  }
+  
+  componentWillUnmount() {
+    window.removeEventListener('scroll')
+  }
+
+  handleScroll = () => {
+    var node = this.divElement
+    const bottom = node.scrollHeight-node.offsetTop - (window.scrollY) <= 788;
+    if (bottom) {      
+      if (bottom) this.setState({ contentCount: this.state.contentCount+=100 })
+    }    
   }
 
   handleAnimeClick(malID, e) {
@@ -34,20 +52,21 @@ class Home extends Component {
   render() {
     const { anime, classes } = this.props
     return (
-      <div className={`${classes.root}`}>
+      <div className={`${classes.root}`} ref={(divElement) => { this.divElement = divElement }}>
         <Grid
           container
           direction="row"
           justify="space-evenly"
           alignItems="flex-start"
         >
-        {!anime.isFetching ? Object.values(anime.anime).map(value => (
+        {!anime.isFetching ? Object.values(anime.anime).map((value, index) => {
+          {return index <= this.state.contentCount ? 
           <Title
             key={value.malID}
             handleClick={this.handleAnimeClick}
             value = {value}
-          />
-        )): null}
+          /> : null}
+        }) : null}
         </Grid>
       </div>
     )

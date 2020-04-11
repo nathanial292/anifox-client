@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { withStyles } from '@material-ui/core'
+import { withStyles } from '@material-ui/styles'
 import VizSensor from 'react-visibility-sensor';
 import LazyBackground from './LazyBackground'
 
@@ -34,6 +34,8 @@ class Title extends Component {
     this.handleLoad = this.handleLoad.bind(this)
     this.getVisability = this.getVisability.bind(this)
   }
+
+
 
   handleClick(malID, e) {
     this.props.handleClick(malID, e)
