@@ -7,7 +7,7 @@ const styles = (theme) => ({
     height: '242px',
     width: '167px',
     borderRadius: '6px',
-    transition: 'all 0.4s ease 0s',
+    transition: 'all 0.8s ease 0s',
     '&:hover': {
       'filter': 'blur(4px)',
        opacity: '0.5!important'
@@ -47,10 +47,10 @@ class LazyBackground extends Component {
     if (!this.state.loaded) {
       style = { ...style, opacity: 0 }
     } else {
-      style = {...style, opacity: 0.7 }
+      style = {...style, opacity: 1 }
     }
     if (this.props.getvisability() && this.state.loaded) {
-      style = {...style, opacity: 0.7 }
+      style = {...style, opacity: 1 }
     } else {
       style = {...style, opacity: 0 }
     }

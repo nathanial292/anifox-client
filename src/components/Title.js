@@ -23,7 +23,8 @@ const styles = theme => ({
     color: 'white',
     position: 'absolute',
     fontSize: '12px',
-    zIndex: 1
+    zIndex: 1,
+    textShadow: '-3px -1px 3px black'
   }
 })
 
@@ -65,15 +66,17 @@ class Title extends Component {
           onClick={(e) => this.handleClick(malID, e)}
         >
           {this.state.imgViz || this.state.hasLoaded ?
-              <LazyBackground key={key}
-                src={picture}
-                handleload={this.handleLoad}
-                getvisability={this.getVisability}
-              >
-                <span className={`${classes.text}`} style={{ top: 0, margin: '25px 0 0 5px'}}>{type}</span>
-                <span className={`${classes.text}`} style={{ top: 0, margin: '10px 0 0 5px' }}>{nbEp} Episodes</span>
-                <span className={`${classes.text}`} style={{ bottom: 0, margin: '0 0 10px 5px', fontSize: '14px'}}>{title}</span>
-              </LazyBackground>
+          <div>
+            <LazyBackground key={key}
+              src={picture}
+              handleload={this.handleLoad}
+              getvisability={this.getVisability}
+            >
+              <span className={`${classes.text}`} style={{ top: 0, margin: '25px 0 0 5px'}}>{type}</span>
+              <span className={`${classes.text}`} style={{ top: 0, margin: '10px 0 0 5px' }}>{nbEp} Episodes</span>
+            </LazyBackground>
+            <span className={`${classes.text}`} style={{ position: 'relative', bottom: 0, fontSize: '14px'}}>{title}</span>
+          </div>
           : <div className={`${classes.image}`}></div>
           }
           <Information />
