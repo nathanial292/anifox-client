@@ -1,8 +1,8 @@
-import React, { Component } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Animate } from 'react-animate-mount'
-import { withStyles } from '@material-ui/styles'
+import { makeStyles } from '@material-ui/styles'
 
-const styles = (theme) => ({
+const useStyles = makeStyles(theme => ({
   image: {
     height: '242px',
     width: '167px',
@@ -18,52 +18,58 @@ const styles = (theme) => ({
     borderRadius: '6px',
     position: 'relative'
   }
-})
+}))
 
-class LazyBackground extends Component {
-  constructor(props) {
-    super(props)
-    this.state = { src: null, loaded: false }
-  }
+const LazyBackground = (props) => {
+  const [stateSrc, setStateSrc] = useState(null)
+  const [loaded, setLoaded] = useState(false)
+  const [backgroundStyle, setBackgroundStyle] = useState(null)
+  const classes = useStyles()
 
-  componentDidMount() {
-    const { src } = this.props
+  useEffect(() => {
+    const {src} = props
 
     const imageLoader = new Image()
     imageLoader.src = src
 
     imageLoader.onload = () => {
-      this.setState({ src, loaded: true })
+      setStateSrc(src)
+      setLoaded(true)
 
-      this.props.handleload()
+      props.handleload()
     }
-  }
 
-  render() {
-    const { classes } = this.props
+    setBackgroundStyle(setStyles())
+
+    return () => imageLoader.onload = null
+  }, [stateSrc, loaded, props.getvisability(), props.src])
+
+  const setStyles = () => {
     let style = {
-      background: `url(${this.state.src})`,
+      background: `url(${stateSrc})`,
     }
-    if (!this.state.loaded) {
+    if (!loaded) {
       style = { ...style, opacity: 0 }
     } else {
       style = {...style, opacity: 1 }
     }
-    if (this.props.getvisability() && this.state.loaded) {
+    if (props.getvisability() && loaded) {
       style = {...style, opacity: 1 }
     } else {
       style = {...style, opacity: 0 }
     }
-    
-    return (
-      <Animate type="fade" show={this.props.getvisability() || this.state.loaded} appear>
-        <div className={`${classes.container}`}>
-          {this.props.children}
-          <div className={`${classes.image}`} style={style}></div>
-        </div>
-      </Animate>
-    )
+    return style
   }
+  
+  return (
+    <Animate type="fade" show={props.getvisability() || loaded} appear>
+      <div className={classes.container}>
+        {props.children}
+        <div className={classes.image} style={backgroundStyle}></div>
+      </div>
+    </Animate>
+  )
+
 }
 
-export default withStyles(styles)(LazyBackground)
+export default LazyBackground

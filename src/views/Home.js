@@ -26,18 +26,18 @@ const useStyles = makeStyles(theme => ({
 
 export const useWindowEvent = (callback) => {
   useEffect(() => {
-    window.addEventListener('scroll', callback);
-    return () => window.removeEventListener('scroll', callback);
-  }, [callback]);
-};
+    window.addEventListener('scroll', callback)
+    return () => window.removeEventListener('scroll', callback)
+  }, [callback])
+}
 
 const Example = () => {
-  const [referenceElement, setReferenceElement] = React.useState(null);
-  const [popperElement, setPopperElement] = React.useState(null);
-  const [arrowElement, setArrowElement] = React.useState(null);
+  const [referenceElement, setReferenceElement] = React.useState(null)
+  const [popperElement, setPopperElement] = React.useState(null)
+  const [arrowElement, setArrowElement] = React.useState(null)
   const { styles, attributes } = usePopper(referenceElement, popperElement, {
     modifiers: [{ name: 'arrow', options: { element: arrowElement } }],
-  });
+  })
 
   return (
     <>
@@ -50,11 +50,11 @@ const Example = () => {
         <div ref={setArrowElement} style={styles.arrow} />
       </div>
     </>
-  );
-};
+  )
+}
 
 const Home = () => {
-  const [contentCount, setContentCount] = useState(30)
+  const [contentCount, setContentCount] = useState(40)
   const divElement = useRef()
   const dispatch = useDispatch()
   const anime = useSelector(state => state.anime)
@@ -64,7 +64,7 @@ const Home = () => {
     const node = divElement.current
     const bottom = node.getBoundingClientRect().bottom - window.innerHeight
 
-    if (bottom <= 200 && bottom >= 0) {
+    if (bottom <= 150 && bottom >= 0) {
       let newLimit = contentCount + 100
       setContentCount(newLimit)
     }  
