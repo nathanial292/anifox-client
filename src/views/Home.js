@@ -7,6 +7,15 @@ import { useSelector, useDispatch } from 'react-redux'
 import { selectAnime } from '../redux/actions'
 import Title from '../components/Title'
 
+import { MoonLoader } from "react-spinners";
+import { css } from "@emotion/core";
+
+const override = css`
+  display: block;
+  margin: 0 auto;
+  border-color: 'white'
+`;
+
 const useStyles = makeStyles(theme => ({
   root: {
     width: "100%",
@@ -83,7 +92,13 @@ const Home = () => {
           handleClick={handleAnimeClick}
           value = {value}
         /> : null}
-      }) : null}
+      }) :  
+      <MoonLoader
+        css={override}
+        size={150}
+        color={"#FFF"}
+        loading={anime.isFetching}
+      />}
       </Grid>
     </div>
   )
